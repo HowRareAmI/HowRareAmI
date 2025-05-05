@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Rare Are You?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>How Rare Are You?</h2>
+    <form id="quizForm">
+      <label for="birthMonth">Birth Month:</label>
+      <select id="birthMonth" required>
+        <option value="">--Select Month--</option>
+        <option value="January">January</option>
+        <option value="February">February</option>
+        <option value="March">March</option>
+        <option value="April">April</option>
+        <option value="May">May</option>
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+      </select>
+      
+      <label for="eyeColor">Eye Color:</label>
+      <select id="eyeColor" required>
+        <option value="">--Select Eye Color--</option>
+        <option value="Brown">Brown</option>
+        <option value="Blue">Blue</option>
+        <option value="Green">Green</option>
+        <option value="Hazel">Hazel</option>
+        <option value="Gray">Gray</option>
+      </select>
+
+      <label for="handedness">Handedness:</label>
+      <select id="handedness" required>
+        <option value="">--Select--</option>
+        <option value="Right">Right-handed</option>
+        <option value="Left">Left-handed</option>
+        <option value="Ambidextrous">Ambidextrous</option>
+      </select>
+
+      <button type="submit">Find Out!</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const rarityData = {
+      birthMonth: {
+        January: 8.3, February: 7.0, March: 8.1, April: 8.0, May: 8.5,
+        June: 8.3, July: 8.7, August: 9.1, September: 9.3, October: 8.7,
+        November: 8.2, December: 8.0
+      },
+      eyeColor: {
+        Brown: 70, Blue: 10, Green: 2, Hazel: 10, Gray: 1
+      },
+      handedness: {
+        Right: 90, Left: 9, Ambidextrous: 1
+      }
+    };
+
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const birthMonth = document.getElementById('birthMonth').value;
+      const eyeColor = document.getElementById('eyeColor').value;
+      const handedness = document.getElementById('handedness').value;
+
+      const rarity =
+        (100 - rarityData.birthMonth[birthMonth]) *
+        (100 - rarityData.eyeColor[eyeColor]) *
+        (100 - rarityData.handedness[handedness]);
+
+      const rarityScore = (rarity / 10000).toFixed(6);
+
+      document.getElementById('result').textContent =
+        `You are rarer than ${rarityScore}% of the population!`;
+    });
+  </script>
+</body>
+</html>
